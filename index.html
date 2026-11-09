@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Revisor Normativo de Trabajos de Titulación — Gestión del Transporte | ESPOCH</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- =====================================================================
+       FRANJA SUPERIOR DE LOGOS OFICIALES Y ENCABEZADO INSTITUCIONAL ESPOCH
+       ===================================================================== -->
+  <div class="institutional-logos-bar">
+    <div class="logos-bar-inner">
+      <img
+        src="assets/logos-oficiales-banner.png"
+        alt="ESPOCH - Carrera de Gestión del Transporte - Certificado ISO 9001:2015 - ACBSP Accredited Program"
+        class="official-banner-img"
+      />
+      <div class="logos-bar-faculty">
+        <div class="fac-uni">Escuela Superior Politécnica de Chimborazo</div>
+        <div class="fac-name">Facultad de Administración de Empresas</div>
+        <div class="fac-dbra">Dirección de Bibliotecas y Recursos del Aprendizaje (DBRA)</div>
+      </div>
+    </div>
+  </div>
+
+  <header class="top-header">
+    <div class="header-inner">
+      <div class="brand-group">
+        <div class="brand-titles">
+          <div class="inst-tag">Sistema de Verificación Académica • Normativa Institucional</div>
+          <h1>Revisor Normativo de Trabajos de Titulación</h1>
+          <p class="sub-career">Carrera de Gestión del Transporte — Evaluación de Forma y Estructura</p>
+        </div>
+      </div>
+
+      <div class="author-badge">
+        <div class="author-label">Autor del Programa</div>
+        <div class="author-name">Ing. Diego Haro Avalos</div>
+        <div class="author-role">Docente Trabajo de Titulación • Carrera de Gestión del Transporte</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       CONTENIDO PRINCIPAL
+       ===================================================================== -->
+  <main class="main-container">
+
+    <!-- PANEL 1: SUBIDA DE ARCHIVO PDF -->
+    <section id="upload-panel" class="upload-panel">
+      <div class="upload-intro">
+        <div>
+          <h2>Verificación Automática de Forma y Normativa Institucional ESPOCH</h2>
+          <p>
+            Sube tu Trabajo de Titulación en formato <strong>PDF</strong> para evaluar automáticamente márgenes, tipografía, paginación diferenciada, portada, páginas preliminares, resumen POMRC, estructura capitular, tablas, ilustraciones y bibliografía APA, generando un <strong>reporte descargable</strong> con tu porcentaje de cumplimiento y guía de corrección.
+          </p>
+        </div>
+        <button type="button" id="btn-open-guide" class="btn-outline-guide">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          Ver Resumen de Normas ESPOCH
+        </button>
+      </div>
+
+      <div class="config-bar">
+        <div class="config-field">
+          <label for="select-modalidad">Modalidad / Estructura a Evaluar</label>
+          <select id="select-modalidad">
+            <option value="investigacion" selected>Proyecto de Investigación de Grado (Guía Oficial ESPOCH)</option>
+            <option value="general">Revisión General de Forma DBRA (Otras modalidades)</option>
+          </select>
+        </div>
+        <div class="config-field">
+          <label for="select-norma">Norma Bibliográfica Institucional (según Facultad)</label>
+          <select id="select-norma">
+            <option value="APA" selected>Norma APA — Facultad de Administración de Empresas (Gestión del Transporte)</option>
+            <option value="ISO690">Norma ISO 690 (Otras facultades ESPOCH)</option>
+            <option value="VANCOUVER">Norma Vancouver (Salud Pública)</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="dropzone" class="dropzone" role="button" tabindex="0" aria-label="Zona para cargar archivo PDF">
+        <input type="file" id="pdf-file-input" accept=".pdf,application/pdf" class="hidden" />
+        <div class="dropzone-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="12" y1="18" x2="12" y2="12"></line>
+            <polyline points="9 15 12 12 15 15"></polyline>
+          </svg>
+        </div>
+        <h3>Arrastra y suelta aquí tu Trabajo de Titulación en formato PDF</h3>
+        <p>O selecciona el archivo exportado desde Microsoft Word en tu computador</p>
+        <button type="button" id="btn-select-file" class="btn-primary-upload">
+          Seleccionar archivo PDF
+        </button>
+        <div class="privacy-note">
+          🔒 Procesamiento 100% seguro en tu navegador: tu archivo PDF no se envía ni almacena en servidores externos.
+        </div>
+      </div>
+
+      <div class="demo-strip">
+        <span>¿Deseas probar cómo funciona el analizador con documentos de demostración?</span>
+        <div class="demo-buttons">
+          <button type="button" id="btn-demo-bad" class="btn-demo demo-bad">
+            Probar Ejemplo con Errores Comunes
+          </button>
+          <button type="button" id="btn-demo-good" class="btn-demo demo-good">
+            Probar Ejemplo Cumplimiento Óptimo
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- PANEL 2: BARRA DE PROGRESO DURANTE EL ANÁLISIS -->
+    <section id="progress-panel" class="progress-panel hidden" aria-live="polite">
+      <div class="spinner"></div>
+      <h3 style="margin:0; color:var(--espoch-navy);">Analizando Trabajo de Titulación...</h3>
+      <div class="progress-bar-outer">
+        <div id="progress-bar-inner" class="progress-bar-inner"></div>
+      </div>
+      <div id="progress-status-text" class="progress-status-text">Iniciando lectura del archivo PDF...</div>
+    </section>
+
+    <!-- PANEL 3: DASHBOARD DE RESULTADOS Y REPORTE DESCARGABLE -->
+    <section id="dashboard-panel" class="hidden">
+
+      <!-- Tarjeta Principal de Porcentaje y Descarga -->
+      <div class="results-hero">
+        <div class="gauge-box">
+          <div class="gauge-svg-wrap">
+            <svg class="gauge-svg" viewBox="0 0 176 176">
+              <circle class="gauge-bg" cx="88" cy="88" r="74"></circle>
+              <circle id="gauge-fg" class="gauge-fg" cx="88" cy="88" r="74" stroke-dasharray="465" stroke-dashoffset="465"></circle>
+            </svg>
+            <div class="gauge-center-text">
+              <span id="gauge-pct" class="gauge-pct">0%</span>
+              <span class="gauge-sub">Cumplimiento</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-details">
+          <span id="dictamen-pill" class="dictamen-pill medio">Evaluación Completada</span>
+          <h2 id="dictamen-title">Resultado del Análisis</h2>
+          <p id="dictamen-msg" class="dictamen-msg"></p>
+
+          <div id="doc-meta-grid" class="doc-meta-grid"></div>
+
+          <div class="hero-actions">
+            <button type="button" id="btn-download-report" class="btn-download-report">
+              <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Descargar Reporte Completo en PDF
+            </button>
+            <button type="button" id="btn-reset" class="btn-secondary-reset">
+              Subir otro archivo PDF
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Indicadores Rápidos (KPIs) -->
+      <div class="kpi-strip">
+        <div id="kpi-card-fail" class="kpi-card kpi-fail" title="Filtrar incumplimientos">
+          <div id="kpi-fail-num" class="kpi-num">0</div>
+          <div class="kpi-label">Incumplimientos Normativos</div>
+        </div>
+        <div id="kpi-card-warn" class="kpi-card kpi-warn" title="Filtrar observaciones parciales">
+          <div id="kpi-warn-num" class="kpi-num">0</div>
+          <div class="kpi-label">Observaciones Parciales</div>
+        </div>
+        <div id="kpi-card-pass" class="kpi-card kpi-pass" title="Filtrar parámetros cumplidos">
+          <div id="kpi-pass-num" class="kpi-num">0</div>
+          <div class="kpi-label">Parámetros Cumplidos</div>
+        </div>
+        <div id="kpi-card-all" class="kpi-card kpi-all" title="Ver todos los criterios evaluados">
+          <div id="kpi-all-num" class="kpi-num">0</div>
+          <div class="kpi-label">Total Criterios Evaluados</div>
+        </div>
+      </div>
+
+      <!-- Cumplimiento por Dimensión Normativa -->
+      <div class="dimensions-section">
+        <h3>Desglose por Dimensión Normativa ESPOCH (Clic en una dimensión para filtrar)</h3>
+        <div id="dimensions-grid" class="dimensions-grid"></div>
+      </div>
+
+      <!-- Listado Explicativo de Incumplimientos y Parámetros -->
+      <div id="findings-section" class="findings-section">
+        <div class="findings-toolbar">
+          <div class="filter-tabs" role="tablist">
+            <button type="button" class="filter-tab active" data-filter="issues">
+              Por Corregir (Incumplimientos y Observaciones)
+            </button>
+            <button type="button" class="filter-tab" data-filter="fail">
+              Solo Incumplimientos
+            </button>
+            <button type="button" class="filter-tab" data-filter="pass">
+              Cumplidos
+            </button>
+            <button type="button" class="filter-tab" data-filter="all">
+              Todos los Parámetros
+            </button>
+          </div>
+          <div class="search-box">
+            <input type="search" id="search-findings" placeholder="Buscar criterio (ej. márgenes, resumen, tabla)..." />
+          </div>
+        </div>
+
+        <div id="findings-list" class="findings-list"></div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- =====================================================================
+       MODAL DE CONSULTA RÁPIDA DE LA NORMATIVA ESPOCH (DBRA + TITULACIÓN)
+       ===================================================================== -->
+  <div id="guide-modal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Resumen Rápido — Guía de Normalización DBRA ESPOCH y Gestión del Transporte</h3>
+        <button type="button" id="btn-close-guide" class="modal-close" aria-label="Cerrar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="guide-grid">
+          <div class="guide-block">
+            <h4>1. Papel, Márgenes y Tipografía</h4>
+            <ul>
+              <li><strong>Papel:</strong> Formato A4 (21 cm × 29,7 cm).</li>
+              <li><strong>Márgenes verticales:</strong> Izquierdo <strong>3,5 cm</strong>; Superior, Derecho e Inferior <strong>2,5 cm</strong>.</li>
+              <li><strong>Márgenes horizontales:</strong> Superior <strong>3,5 cm</strong>; resto <strong>2,5 cm</strong>.</li>
+              <li><strong>Fuente:</strong> <strong>Times New Roman 11 pt</strong> en todo el texto; <strong>8 pt</strong> para Fuente/Realizado por; <strong>9 pt</strong> para citas extensas.</li>
+              <li><strong>Interlineado:</strong> <strong>1,5</strong> (espaciado ant./post. 0 pt) con un ENTER entre párrafos y títulos.</li>
+              <li><strong>Sangría:</strong> <strong>Cero sangría</strong> en párrafos, títulos y viñetas del cuerpo.</li>
+            </ul>
+          </div>
+
+          <div class="guide-block">
+            <h4>2. Paginación en las 3 Partes</h4>
+            <ul>
+              <li><strong>Portada:</strong> No lleva número visible (cuenta como <em>i</em>).</li>
+              <li><strong>Preliminares:</strong> Romanos en minúsculas (<strong>ii, iii, iv...</strong>) desde Derecho de Autor hasta Summary/Abstract.</li>
+              <li><strong>Texto (Cuerpo):</strong> Números arábigos (<strong>1, 2, 3...</strong>) desde Introducción hasta Conclusiones y Recomendaciones.</li>
+              <li><strong>Páginas Finales:</strong> Glosario, Bibliografía y Anexos <strong>NO llevan numeración</strong>.</li>
+              <li><strong>Ubicación:</strong> Centrado, a <strong>2 cm</strong> del borde inferior.</li>
+            </ul>
+          </div>
+
+          <div class="guide-block">
+            <h4>3. Jerarquía de Títulos y Resumen</h4>
+            <ul>
+              <li><strong>1. NIVEL 1:</strong> MAYÚSCULAS + <strong>Negrilla</strong>.</li>
+              <li><strong>1.1. Nivel 2:</strong> Minúscula + <strong>Negrilla</strong>.</li>
+              <li><strong>1.1.1. Nivel 3:</strong> Minúscula + <strong><em>Negrilla y cursiva</em></strong>.</li>
+              <li><strong>1.1.1.1. Nivel 4:</strong> Minúscula + <em>Cursiva</em> (sin negrilla).</li>
+              <li><strong>Resumen:</strong> Esquema <strong>POMRC</strong>, entre <strong>200 y 300 palabras</strong>, en <strong>un solo párrafo</strong>, pasado y 3.ª persona.</li>
+              <li><strong>Palabras clave:</strong> Secuencia de <strong>5 descriptores</strong> en formato <code>&lt;PALABRA CLAVE&gt;</code>.</li>
+            </ul>
+          </div>
+
+          <div class="guide-block">
+            <h4>4. Tablas, Ilustraciones y Bibliografía APA</h4>
+            <ul>
+              <li><strong>Tablas:</strong> <code>Tabla X-Y: Descripción</code> <strong>arriba</strong> (11 pt) y <code>Fuente:</code> / <code>Realizado por:</code> <strong>abajo</strong> (8 pt). No pegar tablas como imagen.</li>
+              <li><strong>Ilustraciones:</strong> <code>Ilustración X-Y: Descripción</code> (11 pt) y fuente (8 pt), <strong>ambos en la parte inferior</strong>.</li>
+              <li><strong>Autoría propia:</strong> Usar <code>Realizado por: Apellido, Inicial., Año.</code> (no "Elaboración propia").</li>
+              <li><strong>Bibliografía FADE (APA):</strong> Orden alfabético, <strong>sangría francesa</strong> y al final en <strong>8 pt, negrita y alineado a la derecha</strong>: <code>Total X referencias bibliográficas.</code></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================================
+       PIE DE PÁGINA CON LOGOS OFICIALES Y AUTORÍA SOLICITADA
+       ===================================================================== -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <img
+        src="assets/logos-oficiales-banner.png"
+        alt="Logos institucionales ESPOCH - Carrera de Gestión del Transporte - ISO 9001:2015 - ACBSP"
+        class="footer-logos-img"
+      />
+      <div class="footer-credits">
+        <div>
+          <strong>Escuela Superior Politécnica de Chimborazo (ESPOCH)</strong> • Facultad de Administración de Empresas
+        </div>
+        <div>
+          Autor del programa: <strong>Ing. Diego Haro Avalos</strong>, Docente Trabajo de Titulación, Carrera de Gestión del Transporte
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Librerías Locales (100% compatible sin conexión y con doble clic file://) -->
+  <script src="libs/pdf.worker.min.js"></script>
+  <script src="libs/pdf.min.js"></script>
+  <script src="libs/jspdf.umd.min.js"></script>
+  <script src="libs/jspdf.plugin.autotable.min.js"></script>
+
+  <!-- Módulos del Sistema Revisor ESPOCH -->
+  <script src="js/logos-data.js"></script>
+  <script src="js/normativa-rules.js"></script>
+  <script src="js/pdf-extractor.js"></script>
+  <script src="js/analyzer.js"></script>
+  <script src="js/report-generator.js"></script>
+  <script src="js/demo-generator.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
